@@ -1,51 +1,78 @@
 import './styles.sass';
 import Phaser from 'phaser';
 
-var config = {
+const config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    pixelArt: true,
     parent: 'game',
+    width: 320,
+    height: 120,
+    scale: {
+        mode: Phaser.Scale.FIT,
+    },
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 200 }
+            gravity: { y: 300 }
         }
     },
     scene: {
-        preload: preload,
-        create: create
+        preload,
+        create,
+        update
     }
 };
 
-var game = new Phaser.Game(config);
+let walker = null;
+let cursors = null;
+const game = new Phaser.Game(config);
 
-function preload ()
-{
-    this.load.setBaseURL('http://labs.phaser.io');
+function preload() {
+    this.load.spritesheet(
+        'walker', 
+        'assets/walk.png',
+        { frameWidth: 16, frameHeight: 32 }
+    );
 
-    this.load.image('sky', 'assets/skies/space3.png');
-    this.load.image('logo', 'assets/sprites/phaser3-logo.png');
-    this.load.image('red', 'assets/particles/red.png');
 }
 
-function create ()
-{
-    this.add.image(400, 300, 'sky');
-
-    var particles = this.add.particles('red');
-
-    var emitter = particles.createEmitter({
-        speed: 100,
-        scale: { start: 1, end: 0 },
-        blendMode: 'ADD'
+function create() {
+    
+    this.anims.create({
+        key: 'stand',
+        frames: this.anims.generateFrameNumbers('walker', { start: 0, end: 1 }),
+        frameRate: 0.5,
+        repeat: -1
     });
 
-    var logo = this.physics.add.image(400, 100, 'logo');
+    this.anims.create({
+        key: 'walk',
+        frames: this.anims.generateFrameNumbers('walker', { start: 2, end: 7 }),
+        frameRate: 7,
+        repeat: -1
+    });
 
-    logo.setVelocity(100, 200);
-    logo.setBounce(1, 1);
-    logo.setCollideWorldBounds(true);
+    this.cameras.main.setBackgroundColor('#EDEDED');
+    walker = this.physics.add.sprite(100, 50, 'walker');
+    walker.body.collideWorldBounds = true;
+    walker.anims.play('stand');
 
-    emitter.startFollow(logo);
+    cursors = this.input.keyboard.createCursorKeys();
+}
+
+function update(time, delta) {
+    
+    if (cursors.left.isDown) {
+        walker.body.setVelocityX(-50);
+        walker.anims.play('walk', true);
+        walker.flipX = true;
+    } else if (cursors.right.isDown) {
+        walker.body.setVelocityX(50);
+        walker.anims.play('walk', true);
+        walker.flipX = false;
+    } else {
+        walker.setVelocityX(0)
+        walker.anims.play('stand');
+    }
+
 }

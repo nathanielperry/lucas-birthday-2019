@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // const phaser = path.join(__dirname, '/node_modules/phaser/src/phaser.js');
 
@@ -52,6 +53,9 @@ module.exports = {
                 removeEmptyAttributes: false
             }
         }),
+        new CopyWebpackPlugin([
+            { from: 'src/assets', to: 'assets' }
+        ]),
         new MiniCssExtractPlugin(),
         new BrowserSyncPlugin({
             host: process.env.IP || 'localhost',
