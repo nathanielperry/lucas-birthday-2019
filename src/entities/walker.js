@@ -27,6 +27,14 @@ export default class Walker extends Phaser.GameObjects.Sprite {
         this.anims.play('stand');
     }
 
+    static preload(scene) {
+        scene.load.spritesheet(
+            'walker',
+            'assets/walk.png',
+            { frameWidth: 16, frameHeight: 32 }
+        )
+    }
+
     update(time, delta) {
         if (this.cursors.left.isDown) {
             this.body.setVelocityX(-50);
