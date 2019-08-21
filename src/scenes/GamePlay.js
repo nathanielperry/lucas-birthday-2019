@@ -3,7 +3,7 @@ import Walker from '../entities/walker';
 
 export default class GamePlay extends GameScene {
     constructor() {
-        super({key: 'GamePlay', active: true});
+        super({key: 'GamePlay'});
     }
 
     init() {

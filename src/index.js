@@ -2,6 +2,7 @@ import './styles.sass';
 import Phaser from 'phaser';
 
 import GamePlay from './scenes/GamePlay'
+import TitleScreen from './scenes/TitleScreen';
 
 const config = {
     type: Phaser.AUTO,
@@ -21,6 +22,7 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
+game.scene.add('TitleScreen', TitleScreen, true);
 game.scene.add('GamePlay', GamePlay);
 // game.events.once(Phaser.Scenes.Events.CREATE, scene => {
 //     scene.cursors = scene.input.keyboard.createCursorKeys();
