@@ -12,7 +12,9 @@ export default class GamePlay extends GameScene {
     }
 
     preload() {
-        this.load.image('bg', '../assets/background.png');
+        this.load.image('bg1', '../assets/jungle1.png');
+        this.load.image('bg2', '../assets/jungle2.png');
+        this.load.image('bg3', '../assets/jungle3.png');
         Dinoboy.preload(this);
     }
 
@@ -20,8 +22,12 @@ export default class GamePlay extends GameScene {
         this.cameras.main.setBackgroundColor('#EDEDED');
         
         //background tile
-        this.bg = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'bg');
-        this.bg.setOrigin(0, 0).setScrollFactor(0);
+        this.bg3 = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'bg3')
+            .setOrigin(0, 0);
+        this.bg2 = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'bg2')
+            .setOrigin(0, 0);
+        this.bg1 = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'bg1')
+            .setOrigin(0, 0);
 
         //floor
         this.platforms = this.physics.add.staticGroup();
@@ -48,6 +54,8 @@ export default class GamePlay extends GameScene {
     update(time, delta) {
         this.dinoboy.update(time, delta);
         //scroll background
-        this.bg.tilePositionX += 0.5;
+        this.bg1.tilePositionX += 0.8;
+        this.bg2.tilePositionX += 0.4;
+        this.bg3.tilePositionX += 0.2;
     }
 }

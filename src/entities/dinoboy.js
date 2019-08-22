@@ -7,8 +7,6 @@ export default class Dinoboy extends Phaser.GameObjects.Sprite {
         super(scene, x, y, 'dinoboy');
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
-        this.body.collideWorldBounds = true;
-        this.cursors = this.scene.input.keyboard.createCursorKeys();
         this.spacebar = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         
         this.scene.anims.create({
