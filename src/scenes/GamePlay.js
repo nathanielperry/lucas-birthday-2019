@@ -2,6 +2,7 @@ import game from '../index';
 import GameScene from './GameScene';
 import Dinoboy from '../entities/dinoboy';
 import Jumpbar from '../entities/jumpbar';
+import Obstacle from '../entities/Obstacle';
 
 export default class GamePlay extends GameScene {
     constructor() {
@@ -21,6 +22,7 @@ export default class GamePlay extends GameScene {
         //dinoboy
         Dinoboy.preload(this);
         Jumpbar.preload(this);
+        Obstacle.preload(this);
     }
 
     create() {        
@@ -30,8 +32,13 @@ export default class GamePlay extends GameScene {
         );
 
         //Scene variables
+        this.floorHeight = 48;
+        this.runSpeed = 1.5;
         this.holdStrength = 0;
         this.jumpIsCharging = false;
+        this.level = 1;
+        this.obstacleCollider = null;
+        this.obstacle = null;
 
         //background tile
         this.bg3 = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'bg3')
@@ -46,9 +53,9 @@ export default class GamePlay extends GameScene {
         this.floor = this.platforms.add(
             this.add.zone(
                 0,
-                game.config.height - 48,
+                game.config.height - this.floorHeight,
                 game.config.width,
-                (48 - game.config.height) * -1
+                (this.floorHeight - game.config.height) * -1
             ).setOrigin(0, 0)
         );
         this.physics.world.enable(this.platforms);
@@ -60,6 +67,11 @@ export default class GamePlay extends GameScene {
         });
         this.jumpbar = new Jumpbar({
             scene: this
+        });
+
+        //Obstacles
+        this.obstacles = this.physics.add.group({
+            runChildUpdate: true
         });
 
         //floor collision
@@ -88,8 +100,24 @@ export default class GamePlay extends GameScene {
         this.dinoboy.update(time, delta);
         this.jumpbar.update(time, delta);
         //scroll background
-        this.bg1.tilePositionX += 1;
-        this.bg2.tilePositionX += 0.6;
-        this.bg3.tilePositionX += 0.4;
+        this.bg1.tilePositionX += this.runSpeed;
+        this.bg2.tilePositionX += this.runSpeed * 0.6;
+        this.bg3.tilePositionX += this.runSpeed * 0.4;
+
+        //Add obstacles and colliders
+        if (this.obstacles.getLength() === 0) {
+            this.obstacle = new Obstacle({
+                scene: this,
+                level: this.level
+            });
+            this.obstacleCollider = this.physics.world.addCollider(this.platforms, this.obstacle);
+            this.obstacles.add(this.obstacle);
+        }
+
+        this.physics.world.overlap(this.dinoboy, this.obstacle, () => {
+            this.physics.world.removeCollider(this.obstacleCollider);
+            this.obstacle.body.setVelocityX(-100);
+            this.obstacle.body.setVelocityY(-100);
+        });
     }
 }

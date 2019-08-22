@@ -20,10 +20,10 @@ export default class Jumpbar extends Phaser.GameObjects.Sprite {
             'jumpbar', 
             'assets/jumpbar.png',
             {frameWidth: 192, frameHeight: 30}
-            );
-        }
+        );
+    }
         
-        update(time, delta) {
+    update(time, delta) {
         this.holdStrengthBar.clear();
         this.holdStrengthBar.fillStyle(0xD95763);
         
