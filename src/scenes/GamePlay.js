@@ -24,6 +24,14 @@ export default class GamePlay extends GameScene {
     }
 
     create() {        
+        //Controls
+        this.spacebar = this.input.keyboard.addKey(
+            Phaser.Input.Keyboard.KeyCodes.SPACE
+        );
+
+        //Scene variables
+        this.holdStrength = 0;
+
         //background tile
         this.bg3 = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'bg3')
             .setOrigin(0, 0);
@@ -59,6 +67,12 @@ export default class GamePlay extends GameScene {
     }
 
     update(time, delta) {
+        if (this.spacebar.isDown) {
+            this.holdStrength = Math.min(this.holdStrength + 1, 100);
+        } else {
+            this.holdStrength = Math.max(this.holdStrength - 3, 0);
+        }
+
         this.dinoboy.update(time, delta);
         this.jumpbar.update(time, delta);
         //scroll background

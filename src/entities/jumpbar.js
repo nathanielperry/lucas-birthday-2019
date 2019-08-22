@@ -12,11 +12,6 @@ export default class Jumpbar extends Phaser.GameObjects.Sprite {
             0
         );
         this.scene.add.existing(this);
-        this.spacebar = this.scene.input.keyboard.addKey(
-            Phaser.Input.Keyboard.KeyCodes.SPACE
-        );
-
-        this.holdStrength = 0;
         this.holdStrengthBar = this.scene.add.graphics();
     }
     
@@ -31,21 +26,16 @@ export default class Jumpbar extends Phaser.GameObjects.Sprite {
         update(time, delta) {
         this.holdStrengthBar.clear();
         this.holdStrengthBar.fillStyle(0xD95763);
-        if (this.spacebar.isDown) {
-            this.holdStrength = Math.min(this.holdStrength + 1, 100);
-        } else {
-            this.holdStrength = Math.max(this.holdStrength - 2, 0);
-        }
         
         this.holdStrengthBar.fillRect(
             (this.x - this.width / 2) + 1,
             this.y + 7,
-            (this.holdStrength / 100) * 190,
+            (this.scene.holdStrength / 100) * 190,
             7
         )
         
-        let jumpTier = Math.floor(this.holdStrength / 33.3) + 1;
-        if (this.holdStrength === 0) {
+        let jumpTier = Math.floor(this.scene.holdStrength / 33.3) + 1;
+        if (this.scene.holdStrength === 0) {
             jumpTier = 0;
         }
         this.setFrame(jumpTier);           
