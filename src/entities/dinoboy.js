@@ -29,7 +29,6 @@ export default class Dinoboy extends Phaser.GameObjects.Sprite {
 
     update(time, delta) {
         if (Phaser.Input.Keyboard.JustUp(this.spacebar)) {
-            console.log('jump');
             this.body.setVelocityY(-200);
         }
     }

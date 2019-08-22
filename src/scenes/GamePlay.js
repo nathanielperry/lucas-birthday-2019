@@ -1,6 +1,7 @@
 import game from '../index';
 import GameScene from './GameScene';
 import Dinoboy from '../entities/dinoboy';
+import Jumpbar from '../entities/jumpbar';
 
 export default class GamePlay extends GameScene {
     constructor() {
@@ -12,15 +13,17 @@ export default class GamePlay extends GameScene {
     }
 
     preload() {
+        //background
         this.load.image('bg1', '../assets/jungle1.png');
         this.load.image('bg2', '../assets/jungle2.png');
         this.load.image('bg3', '../assets/jungle3.png');
+        
+        //dinoboy
         Dinoboy.preload(this);
+        Jumpbar.preload(this);
     }
 
-    create() {
-        this.cameras.main.setBackgroundColor('#EDEDED');
-        
+    create() {        
         //background tile
         this.bg3 = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'bg3')
             .setOrigin(0, 0);
@@ -41,18 +44,23 @@ export default class GamePlay extends GameScene {
         );
         this.physics.world.enable(this.platforms);
 
-        //player sprite
+        //Sprites
         this.dinoboy = new Dinoboy({
             scene: this, 
             x: 50, y: 50
         });
+        this.jumpbar = new Jumpbar({
+            scene: this
+        });
 
-        //collision
+        //floor collision
         this.physics.world.addCollider(this.platforms, this.dinoboy);
+
     }
 
     update(time, delta) {
         this.dinoboy.update(time, delta);
+        this.jumpbar.update(time, delta);
         //scroll background
         this.bg1.tilePositionX += 0.8;
         this.bg2.tilePositionX += 0.4;
