@@ -17,6 +17,12 @@ export default class Dinoboy extends Phaser.GameObjects.Sprite {
         });
         
         this.anims.play('walk');
+        this.jumpHeights = [
+            -200,
+            -250,
+            -300
+        ]
+
     }
 
     static preload(scene) {
@@ -28,8 +34,16 @@ export default class Dinoboy extends Phaser.GameObjects.Sprite {
     }
 
     update(time, delta) {
-        if (Phaser.Input.Keyboard.JustUp(this.spacebar)) {
-            this.body.setVelocityY(-200);
+        if (this.scene.holdStrength > 0
+        && this.isOnGround()
+        && this.scene.jumpIsCharging) {
+            this.body.setVelocityY(
+                this.jumpHeights[Math.floor(this.scene.holdStrength / 33.3)]
+            );
         }
+    }
+
+    isOnGround() {
+        return this.y >= 176;
     }
 }

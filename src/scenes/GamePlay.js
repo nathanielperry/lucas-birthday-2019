@@ -31,6 +31,7 @@ export default class GamePlay extends GameScene {
 
         //Scene variables
         this.holdStrength = 0;
+        this.jumpIsCharging = false;
 
         //background tile
         this.bg3 = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'bg3')
@@ -55,7 +56,7 @@ export default class GamePlay extends GameScene {
         //Sprites
         this.dinoboy = new Dinoboy({
             scene: this, 
-            x: 50, y: 50
+            x: 50, y: 176
         });
         this.jumpbar = new Jumpbar({
             scene: this
@@ -67,17 +68,28 @@ export default class GamePlay extends GameScene {
     }
 
     update(time, delta) {
-        if (this.spacebar.isDown) {
+        //Hold space to add to jump bar
+        //Removed from jump bar if charging
+        if (this.spacebar.isDown && !this.jumpIsCharging) {
             this.holdStrength = Math.min(this.holdStrength + 1, 100);
-        } else {
+        } else if (this.jumpIsCharging) {
             this.holdStrength = Math.max(this.holdStrength - 3, 0);
+        }
+
+        //Set variable which indicates if jump is recharging or not
+        if (this.holdStrength > 0 
+            && this.spacebar.isUp 
+            && this.dinoboy.isOnGround()) {
+            this.jumpIsCharging = true;
+        } else if (this.holdStrength === 0) {
+            this.jumpIsCharging = false;
         }
 
         this.dinoboy.update(time, delta);
         this.jumpbar.update(time, delta);
         //scroll background
-        this.bg1.tilePositionX += 0.8;
-        this.bg2.tilePositionX += 0.4;
-        this.bg3.tilePositionX += 0.2;
+        this.bg1.tilePositionX += 1;
+        this.bg2.tilePositionX += 0.6;
+        this.bg3.tilePositionX += 0.4;
     }
 }
