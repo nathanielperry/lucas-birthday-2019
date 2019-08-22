@@ -9,6 +9,7 @@ export default class Dinoboy extends Phaser.GameObjects.Sprite {
         this.scene.physics.add.existing(this);
         this.body.collideWorldBounds = true;
         this.cursors = this.scene.input.keyboard.createCursorKeys();
+        this.spacebar = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         
         this.scene.anims.create({
             key: 'walk',
@@ -29,6 +30,9 @@ export default class Dinoboy extends Phaser.GameObjects.Sprite {
     }
 
     update(time, delta) {
-
+        if (Phaser.Input.Keyboard.JustUp(this.spacebar)) {
+            console.log('jump');
+            this.body.setVelocityY(-200);
+        }
     }
 }
