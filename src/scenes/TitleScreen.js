@@ -18,11 +18,11 @@ export default class TitleScreen extends GameScene {
         let title = this.add.text(
             this.cameras.main.centerX, 
             this.cameras.main.centerY - (this.cameras.main.height / 4), 
-            'Game Title',
+            'Three-rannosaurus \nRex',
             {
                 color: 'black',
-                fontFamily: 'VT323, sans-serif',
-                fontSize: '30px'
+                fontFamily: 'sans-serif',
+                fontSize: '25px',
             }
         );
         title.setOrigin(0.5);

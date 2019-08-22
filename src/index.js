@@ -8,7 +8,7 @@ const config = {
     type: Phaser.AUTO,
     pixelArt: true,
     parent: 'game',
-    width: 240,
+    width: 256,
     height: 240,
     scale: {
         mode: Phaser.Scale.FIT,
@@ -22,8 +22,10 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
-game.scene.add('TitleScreen', TitleScreen, true);
-game.scene.add('GamePlay', GamePlay);
+game.scene.add('TitleScreen', TitleScreen);
+game.scene.add('GamePlay', GamePlay, true);
 // game.events.once(Phaser.Scenes.Events.CREATE, scene => {
 //     scene.cursors = scene.input.keyboard.createCursorKeys();
 // });
+
+export default game;
