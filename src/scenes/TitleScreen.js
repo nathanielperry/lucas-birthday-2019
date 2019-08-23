@@ -11,10 +11,10 @@ export default class TitleScreen extends GameScene {
 
     preload() {
         //audio
-        this.load.audio('theme2', '../assets/Theme2.wav');
+        this.load.audio('theme2', './assets/Theme2.wav');
 
         //title splash
-        this.load.image('title', '../assets/dinoboy-title.png');
+        this.load.image('title', './assets/dinoboy-title.png');
     }
 
     create() {

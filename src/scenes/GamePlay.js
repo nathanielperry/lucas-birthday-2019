@@ -16,17 +16,17 @@ export default class GamePlay extends GameScene {
 
     preload() {
         //audio
-        this.load.audio('theme2alt', '../assets/Theme2Alt.wav');
-        this.load.audio('hit', '../assets/hit3.wav');
-        this.load.audio('gameover', 'assets/gameover.wav');
-        this.load.audio('collect', 'assets/collect2.wav');
+        this.load.audio('theme2alt', './assets/Theme2Alt.wav');
+        this.load.audio('hit', './assets/hit3.wav');
+        this.load.audio('gameover', './assets/gameover.wav');
+        this.load.audio('collect', './assets/collect2.wav');
 
         //background
-        this.load.image('bg1', '../assets/jungle1.png');
-        this.load.image('bg2', '../assets/jungle2.png');
-        this.load.image('bg3', '../assets/jungle3.png');
+        this.load.image('bg1', './assets/jungle1.png');
+        this.load.image('bg2', './assets/jungle2.png');
+        this.load.image('bg3', './assets/jungle3.png');
         
-        this.load.image('1up-count', '../assets/1up-count.png');
+        this.load.image('1up-count', './assets/1up-count.png');
 
         //preload Sprites
         Dinoboy.preload(this);
