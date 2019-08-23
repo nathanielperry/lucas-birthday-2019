@@ -1,8 +1,10 @@
 import './styles.sass';
 import Phaser from 'phaser';
 
-import GamePlay from './scenes/GamePlay'
+import GamePlay from './scenes/GamePlay';
 import TitleScreen from './scenes/TitleScreen';
+import GameOver from './scenes/GameOver';
+import Credits from './scenes/Credits';
 
 const config = {
     type: Phaser.AUTO,
@@ -22,8 +24,10 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
-game.scene.add('TitleScreen', TitleScreen);
-game.scene.add('GamePlay', GamePlay, true);
+game.scene.add('TitleScreen', TitleScreen, true);
+game.scene.add('GamePlay', GamePlay);
+game.scene.add('GameOver', GameOver);
+game.scene.add('Credits', Credits);
 // game.events.once(Phaser.Scenes.Events.CREATE, scene => {
 //     scene.cursors = scene.input.keyboard.createCursorKeys();
 // });

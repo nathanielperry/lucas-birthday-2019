@@ -34,7 +34,7 @@ export default class Jumpbar extends Phaser.GameObjects.Sprite {
             7
         )
         
-        let jumpTier = Math.floor(this.scene.holdStrength / 33.3) + 1;
+        let jumpTier = Math.min(Math.floor(this.scene.holdStrength / 33.3) + 1, 3);
         if (this.scene.holdStrength === 0) {
             jumpTier = 0;
         }
