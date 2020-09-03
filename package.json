@@ -1,7 +1,7 @@
 {
-  "name": "phaser-webpack",
+  "name": "lucas-bday-2019",
   "version": "1.0.0",
-  "description": "Just a simple webpack boilerplate for building phaser games.",
+  "description": "A game for Lucas for his very 3rd birthday.",
   "main": "index.js",
   "scripts": {
     "dev": "webpack --mode=development"
